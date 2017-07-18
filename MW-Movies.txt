@@ -22,7 +22,7 @@ The Strangers
 Disturbia
 Zootopia
 Storks
-No Country For Old Men (H)
+No Country For Old Men
 Jack Reacher
 Snoden
 The Choice
@@ -39,19 +39,18 @@ Divergent
 Maze Run
 Arrival
 The Great Gatsby
-The Switchup
 Skyfall
 10 Cloverfield Lane
 London has Fallen
 Wanted
 Brokeback Mountain
 The Mask
-Not Another Teenage Movie
+Not Another Teen Movie
 The Hills Have Eyes
 Star Trek
 Star Trek into Darkness
 Star Trek Beyond
-Civil War
+Captain America: Civil War
 The Two Towers
 The Return of the King
 Nerve
@@ -69,19 +68,18 @@ Resident Evil
 Resident Evil: After Life
 Assassin's Creed
 Fantastic Beasts and Where to Find Them
-Wish I Were Here
+Wish I Was Here
 La La Land
 Resident Evil: The Final Chapter
 Rogue One
 Crash
 Fifty Shades Darker
-13 Reasons Why
 Get Out
 The Space Between Us
 Beautiful Mind
-Chicago
+Chicago (2002 film)
 Berlin Syndrome
-Drone
+Drone (2017 film)
 The Belko Experiment
 Power Rangers
 Life
@@ -92,11 +90,11 @@ Saving Private Ryan
 Forgetting Sarah Marshal
 Crazy, Stupid, Love
 Phantom of the Opera
-magnificent 7
+The Magnificent Seven
 Love Actually
 The Good Shepherd
 How to Lose a Guy in 10 Days
-The Grinch Who Stole Christmas
+Dr. Seuss' How the Grinch Stole Christmas
 Spotlight
 Dirty Dancing
 The Shining
@@ -123,7 +121,7 @@ Dan in Real Life
 Nightmare on Elm Street
 The Town
 Black Mass
-Independence Day The Resurgence
+Independence Day: Resurgence
 Joy Ride
 Doctor Strangelove
 Tarzan
@@ -132,7 +130,7 @@ Passengers
 Bourne
 Suicide Squad
 Days of Future Past
-First Class
+X-Men: First Class
 X Men
 Daddy's Home
 Two Night Stand
@@ -148,7 +146,8 @@ Resident Evil: Extinction
 A Dog's Purpose
 Star Wars: Revenge of the Sith
 Money Monster
-The American
+The American (2010 film)
+The Switch
 Moana
 Resident Evil: Retribution
 Manchester by the Sea
@@ -160,7 +159,6 @@ Se7en
 The Babadook
 As Good as It Gets
 Bridget Jones's Diary
-The Killing Season 1-3
 The Girl With All the Gifts
 Grease
 John Wick Chapter 2
