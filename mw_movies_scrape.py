@@ -33,7 +33,6 @@ def search_wikipedia(movie):
     return search_results
 
 
-
 def write_data(label, data, file):
     line = label + ","
     for data in data[label]:
@@ -53,6 +52,8 @@ def get_movie_data(movie, file):
         print("No search results found")
         return
 
+    movie_data = {}
+    # Look through all wikipedia search results
     for search_url in search_results:
         print(search_url)
         request = requests.get(search_url)
@@ -76,29 +77,50 @@ def get_movie_data(movie, file):
         except:
             print("Cant remove whitespace...")
             continue
-        isMovie = True
-        data_labels = ["Box office", "Starring", "Running time"]
-        try:
-            data = [table_data[label] for label in data_labels]
-        except:
-            print("Error, not all labels present in {}".format(str(data_labels)))
-            continue
-        else:
-            file.write(movie_title + ",\n")
 
-        for label in data_labels:
-            print("Writing label {} to file".format(label))
+        labels = ["Box office", "Starring", "Running time"]
+
+        for label in labels:
             try:
-                write_data(label, table_data, file)
-                file.write(",\n")
+                movie_data[label] = table_data[label]
             except:
+                print("Error, label {} not present in search".format(label))
                 continue
-        print("done.\n")
-        return
+            else:
+                print("Successfully got {}".format(label))
+
+        if movie_data != {}:
+            print("done.\n")
+            return {movie_title: movie_data}
+
+
+def find_movies(movie_titles):
+    movies_data = {}
+
+    for movie in movie_titles:
+        movie_data = get_movie_data(movie, file)
+        name, data = movie_data.items()[0]
+
+        movies_data[name] = data
+
+    return movies_data
+
+
+def find_movies_data(movies):
+
+    if isinstance(movies, str):
+        try:
+            movies = read_movies_from_file(movies)
+        except:
+            print("Error reading movies from file {}".format(movies))
+
+        return find_movies(movies)
+
+    elif isinstance(movies, list):
+        return find_movies(movies)
 
 
 if __name__ == "__main__":
-    movie_titles = read_movies_from_file("MW-Movies.dat")
-    with open("movie_data.csv", "w") as file:
-        for movie in movie_titles:
-            get_movie_data(movie, file)
+    movies_data = find_movies_data("testing_movies.txt")
+
+    print(json.dumps(movies_data, indent=4))
