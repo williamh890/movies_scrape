@@ -5,6 +5,9 @@ import time
 from multiprocessing.dummy import Pool as ThreadPool
 import threading
 import itertools
+import io
+from apiclient.discovery import build
+from apiclient.http import MediaIoBaseDownload
 
 
 class Analitics(object):
@@ -230,6 +233,20 @@ class Actor(object):
     def add_movie(self, movie):
         self.movies.add(movie)
 
+        return self
+
+    def add_movies(self, new_movies):
+        self.movies = self.movies | set(new_movies)
+
+        return self
+
+    def __str__(self):
+        out = self.name + ": "
+        for m in self.movies:
+            print(m)
+            out += m + ", "
+        return out[0:-2]
+
 
 def get_actor_set(movies):
     # All the actors
@@ -237,13 +254,23 @@ def get_actor_set(movies):
 
     # Look through all the movies
     for movie in movies:
-        stars = movie.get("Starring", None)
+        stars, title = movie.get("Starring"), movie.get("title")
 
         # If there is actors listed
         if stars is not None:
-            for star in stars:
-                if star in actors:
-                    pass
+            for actor in stars:
+                if actor in actors:
+                    # print("Adding movie to {} actor {}".format(title, actor))
+                    actors[actor].append(title)
+                elif actor is not None:
+                    try:
+                        # print("adding actor {}".format(actor))
+                        actors[actor] = [title]
+                    except:
+                        pass
+                        # print("Cant add actor".format())
+
+    return actors
 
 
 def write_movie_data(filename, outfile="movies_data.json"):
@@ -282,9 +309,38 @@ def test_total_watchtimes():
     print("Time watched: {} days or {} hours".format(watchtime_days, watchtime_hrs))
 
 
-if __name__ == "__main__":
-    write_movie_data("MW-Movies.txt")
+def download_movies_from_drive():
+    file_id = '0BwwA4oUTeiV1UVNwOHItT0xfa2M'
+    drive_service = build('drive', 'v3')
+    request = drive_service.files().export_media(fileId=file_id,
+                                                 mimeType='text/csv')
+    fh = io.BytesIO()
+    downloader = MediaIoBaseDownload(fh, request)
+    done = False
+    while done is False:
+        status, done = downloader.next_chunk()
+        print "Download %d%%." % int(status.progress() * 100)
 
+
+def actor_testing():
+        # write_movie_data("MW-Movies.txt")
+    actors_dict = {}
     with open("movies_data.json", "r") as f:
         movies = json.loads(f.read())
-        get_actor_set(movies)
+        actors_dict = get_actor_set(movies)
+
+    # for a, ms in actors_dict.items():
+    #     print(a, ":", ms)
+
+    actors = sorted([Actor(actor).add_movies(m)
+                     for actor, m in actors_dict.items()],
+                    key=lambda x: len(x.movies))
+    for actor in actors:
+        try:
+            print("{}: {}".format(actor.name, len(actor.movies)))
+        except:
+            pass
+
+
+if __name__ == "__main__":
+    download_movies_from_drive()
