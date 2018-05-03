@@ -6,8 +6,6 @@ from multiprocessing.dummy import Pool as ThreadPool
 import threading
 import itertools
 import io
-from apiclient.discovery import build
-from apiclient.http import MediaIoBaseDownload
 
 
 class Analitics(object):
@@ -190,17 +188,20 @@ class ScrapeMovieData(object):
                     table_data.update({r[0].strip(): r[1:]})
                 except:
                     try:
-                        run_text += "Cant remove whitespace on {}...\n".format(r[0])
+                        run_text += "Cant remove whitespace on {}...\n".format(
+                            r[0])
                     except:
                         pass
 
-            labels = ["Box office", "Starring", "Running time", "Release date", "Budget", "Country"]
+            labels = ["Box office", "Starring", "Running time",
+                      "Release date", "Budget", "Country"]
 
             for label in labels:
                 try:
                     movie_data[label] = table_data[label]
                 except:
-                    run_text += "Error, label {} not present in search\n".format(label)
+                    run_text += "Error, label {} not present in search\n".format(
+                        label)
                     continue
                 else:
                     run_text += "Successfully got {}\n".format(label)
@@ -306,7 +307,8 @@ def test_total_watchtimes():
 
     watchtime_days = get_total_watchtime(movies, unit="days")
     watchtime_hrs = get_total_watchtime(movies, unit="hours")
-    print("Time watched: {} days or {} hours".format(watchtime_days, watchtime_hrs))
+    print("Time watched: {} days or {} hours".format(
+        watchtime_days, watchtime_hrs))
 
 
 def download_movies_from_drive():
@@ -319,7 +321,7 @@ def download_movies_from_drive():
     done = False
     while done is False:
         status, done = downloader.next_chunk()
-        print "Download %d%%." % int(status.progress() * 100)
+        print("Download %d%%." % int(status.progress() * 100))
 
 
 def actor_testing():
@@ -343,4 +345,4 @@ def actor_testing():
 
 
 if __name__ == "__main__":
-    download_movies_from_drive()
+    actor_testing()
