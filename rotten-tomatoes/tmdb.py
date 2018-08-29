@@ -1,33 +1,10 @@
-import json
-import multiprocessing as mp
 import pathlib as pl
+import json
+
+import subprocess
+import os
 
 import requests
-
-from cache import cache_json
-
-with open('/home/wbhorn/Documents/keys/moviedb.key', 'r') as f:
-    API_KEY = f.read().strip()
-
-
-def main():
-    with open('movies.csv') as f:
-        movie_titles = f.read().split('\n')
-
-    pool = mp.Pool(10)
-    movies = pool.map(scrape, movie_titles)
-
-
-def scrape(movie_title):
-    print(movie_title)
-    movie_search(movie_title)
-
-
-@cache_json
-def movie_search(movie):
-    db = TMDB(API_KEY)
-
-    return db.search_movie(movie)
 
 
 class TMDB:
@@ -51,6 +28,14 @@ class TMDB:
 
         return json.loads(req.text)
 
+    def download_poster(self, key, path):
+        if pl.Path(path).exists():
+            return
 
-if __name__ == "__main__":
-    main()
+        try:
+            with open(os.devnull, 'w') as FNULL:
+                subprocess.check_call([
+                    'curl', '-o', path, f'https://image.tmdb.org/t/p/w500{key}'
+                ], stdout=FNULL, stderr=subprocess.STDOUT)
+        except:
+            print(f'failed to download {path}')

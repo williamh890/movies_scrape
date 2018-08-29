@@ -10,7 +10,7 @@ def main():
     with open('movies.csv') as f:
         movies = f.read().split('\n')
 
-    for movie in movies[:1]:
+    for movie in movies:
         scrape(movie)
 
 

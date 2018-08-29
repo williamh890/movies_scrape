@@ -9,6 +9,8 @@ name = "pypi"
 "beautifulsoup4" = "*"
 requests = "*"
 lxml = "*"
+pillow = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.6"

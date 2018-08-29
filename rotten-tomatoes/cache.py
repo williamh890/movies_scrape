@@ -11,11 +11,14 @@ def cache_json(fn):
             with cache.open('r') as f:
                 return json.load(f)
         else:
-            result = fn(*args, **kwargs)
+            try:
+                result = fn(*args, **kwargs)
+            except Exception as e:
+                raise e
+            else:
+                with cache.open('w') as f:
+                    json.dump(result, f)
 
-            with cache.open('w') as f:
-                json.dump(result, f)
-
-            return result
+                return result
 
     return wrapper
